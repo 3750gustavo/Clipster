@@ -5,14 +5,11 @@ import PySimpleGUI as sg
 
 def generate_remix_video(input_folder, max_clip_length, max_total_length):
     video_files = []
+    used_clips = {}  # Dicionário para armazenar os trechos usados
     for root, dirs, files in os.walk(input_folder):
         for file in files:
             if file.endswith(('.mp4', '.avi', '.mov')):
                 video_files.append(os.path.join(root, file))
-
-    if not video_files:
-        raise ValueError("No video files found in the selected folder.")
-
     random.shuffle(video_files)
 
     clips = []
@@ -22,25 +19,30 @@ def generate_remix_video(input_folder, max_clip_length, max_total_length):
     while video_files and total_length < max_total_length:
         video_file = random.choice(video_files)
         video_files.remove(video_file)
-        try:
-            video = mp.VideoFileClip(video_file)
-        except Exception as e:
-            print(f"Error processing video file: {video_file}")
-            print(f"Error message: {str(e)}")
-            continue
-
+        video = mp.VideoFileClip(video_file)
         duration = video.duration
 
         if duration > max_clip_length:
             start_time = random.uniform(0, duration - max_clip_length)
             end_time = start_time + max_clip_length
+
+            # Verifica se o trecho selecionado já foi usado
+            for used_start, used_end in used_clips[video_file]:
+                if not (end_time <= used_start or start_time >= used_end):
+                    # Se o trecho já foi usado, pula para a próxima iteração do loop
+                    continue
+
+            # Adiciona o trecho à lista de trechos usados
+            used_clips[video_file].append((start_time, end_time))
+
             subclip = video.subclip(start_time, end_time)
             subclip = subclip.set_duration(max_clip_length).set_fps(30).resize(height=720)
             subclip = subclip.crossfadein(delay)  # adiciona a transição Crossfadeout
             clips.append(subclip)
             total_length += end_time - start_time
 
-    return mp.concatenate_videoclips(clips, padding=-delay, method="compose")  # concatena os clipes com o método compose
+    final_clip = mp.concatenate_videoclips(clips, padding=-delay, method="compose") # concatena os clipes com o método compose
+    final_clip.write_videofile(output_file, fps=30)
 
 def main():
     sg.theme('DarkBlue3')
