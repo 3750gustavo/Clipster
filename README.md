@@ -1,12 +1,42 @@
 # Clipster
+
  A Python script that creates a new video from a folder of video files, by randomly choosing and trimming clips of a specified length, and joining them with smooth crossfade effects. The output video is 720p 30fps and can be customized by setting the maximum clip length and total length. Great for making fun and creative video compilations.
-# Project README
 
 ## Introduction
 
 This project implements a video remix generator that creates a new video by combining clips from a specified input folder. The code utilizes various Python libraries such as `os`, `random`, `moviepy.editor`, and `PySimpleGUI` to accomplish this task.
 
-## Functionality
+## Features
+
+- **Random Selection**: Random selection and trimming of clips for video remix generation
+- **Smooth Crossfade Transitions**: Enjoy seamless transitions between clips for a polished final product
+- **Focus on Customization**: Customizable maximum clip and total lengths (setting how often it changes from one clip to another)
+- **Standardized Output**: Standardized output video resolution (720p) and frame rate (30fps) for consistency and performance
+- **User-Friendly GUI**: User-friendly GUI for selecting input folder and output file
+
+## Installation and Usage
+- **Windows Users**: Run the `start.bat` file to install the required dependencies and start the application.
+- **Linux and macOS Users**: Run the `start.sh` script to install dependencies and start the application, make sure to make the script executable before running:
+```bash
+chmod +x install.sh
+chmod +x start.sh
+```
+
+## Using the Application
+
+To use the Clipster application, follow these steps:
+
+1. Place your video files in a folder.
+2. Run the application and select your input folder containing the video files.
+3. Set your desired maximum clip length and total length for the output video.
+4. By default it will pick the folder name as the output file name, you can change it if you want and choose where to save the output file.
+5. Click the "Generate Remix Video" button to create your remix video.
+
+That's it! Your remix video will be created and saved to the specified location.
+
+---
+
+## In Depth Functionality (May be outdated)
 
 The code follows the following steps to generate the remix video:
 
@@ -28,12 +58,6 @@ The code follows the following steps to generate the remix video:
 
 8. **Writing the Output**: The `final_clip` object is written to a video file using the `write_videofile` method with `output_file` and `fps` as arguments.
 
-9. **User Interface**: The code creates a PySimpleGUI window with input fields for selecting an input folder, setting a maximum clip length, setting a maximum total length, choosing an output file name, and a button for generating the video.
-
-10. **Event Loop**: The code enters an event loop that reads user inputs from the window. If the user closes the window, the loop
-
- is broken. If the user clicks on the "Generate Video" button, the values from each input field are retrieved and assigned to variables. The code checks if the input folder is valid using `os.path.isdir`. If the folder is invalid, an error popup is displayed using `sg.popup_error`. If the folder is valid, the `generate_remix_video` function is called with the input variables. Upon successful video generation, a success popup is displayed using `sg.popup`.
-
 ## Limitations and Considerations
 
 The code has the following limitations and details:
@@ -42,8 +66,19 @@ The code has the following limitations and details:
 
 - **Audio Track Assumption**: The code assumes that all video files in the input folder have audio tracks. Videos without audio may result in synchronization issues or silent gaps in the output video.
 
-- **Resolution and Frame Rate**: The code converts all video clips to a standardized resolution of 720p and a frame rate of 30fps, regardless of their original resolution or frame rate. This may lead to quality loss or distortion in some videos.
+- **Resolution and Frame Rate**: The code converts all video clips to a standardized resolution of 720p and a frame rate of 30fps, regardless of their original resolution or frame rate. This may lead to quality loss or distortion in some videos, however it will help to maintain consistency across the output video and improve performance on slower machines.
 
-- **Error Handling**: The code lacks comprehensive error handling or exception handling mechanisms. If any issues arise during the processing or writing of videos, the code may crash or produce corrupted output files.
+---
 
-It's important to be aware of these limitations and adapt the code accordingly to suit specific project requirements or constraints.
+## Requirements (package_manager.py and start.bat should handle this for you)
+
+- Python 3.x
+- MoviePy
+- PySimpleGUI (version 4.60.4 recommended as 5.x is paid)
+- ffmpeg (required by MoviePy)
+
+## Contributing
+- Contributions are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request.
+
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
