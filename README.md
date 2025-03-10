@@ -1,5 +1,7 @@
 # Clipster
 
+![Screenshot](https://files.catbox.moe/8vvc30.JPG)
+
 A Python script that creates a new video from a folder of video files, by randomly choosing and trimming non-overlapping clips of a specified length, and joining them with smooth crossfade effects. The output video is 720p 30fps and can be customized by setting the maximum clip length and total length. Great for making fun and creative video compilations.
 
 ## Introduction
