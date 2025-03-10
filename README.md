@@ -28,9 +28,9 @@ To use the Clipster application, follow these steps:
 
 1. Place your video files in a folder.
 2. Run the application and select your input folder containing the video files.
-3. Set your desired maximum clip length and total length for the output video.
+3. Set your desired maximum clip length and total length for the output video and then click the "Generate Remix Video" button.
 4. By default it will pick the folder name as the output file name, you can change it if you want and choose where to save the output file.
-5. Click the "Generate Remix Video" button to create your remix video.
+5. Click the "OK" button to create your remix video.
 
 That's it! Your remix video will be created and saved to the specified location.
 
